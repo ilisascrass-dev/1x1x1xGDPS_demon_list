@@ -1,645 +1,1208 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
 <title>1x1x1xGDPS — Demon List</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
 
-html{scroll-behavior:smooth}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
 
 body{
-    min-height:100vh;
-    font-family:Arial,Helvetica,sans-serif;
-    color:#fff;
+
+    font-family:
+        Inter,
+        Arial,
+        sans-serif;
+
     background:#050806;
+
+    color:#fff;
+
+    min-height:100vh;
+
     overflow-x:hidden;
 }
 
-/* ===== LIVE BACKGROUND ===== */
+
+/* =========================
+   BACKGROUND
+========================= */
 
 .live-bg{
+
     position:fixed;
-    inset:-20px;
-    z-index:-1;
+
+    inset:0;
+
+    z-index:-5;
+
     overflow:hidden;
+
     background:
+
         radial-gradient(
-            circle at 50% 20%,
-            rgba(30,100,65,.18),
-            transparent 45%
+            circle at 50% 0%,
+            rgba(69,255,154,.08),
+            transparent 35%
         ),
+
         #050806;
-    transition:transform .25s ease-out;
 }
 
-.orb{
+.live-bg::before{
+
+    content:"";
+
     position:absolute;
-    width:430px;
-    height:430px;
+
+    inset:0;
+
+    opacity:.13;
+
+    background-image:
+
+        linear-gradient(
+            rgba(69,255,154,.12) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(69,255,154,.12) 1px,
+            transparent 1px
+        );
+
+    background-size:55px 55px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent
+        );
+}
+
+
+.orb{
+
+    position:absolute;
+
+    width:420px;
+
+    height:420px;
+
     border-radius:50%;
-    filter:blur(95px);
-    opacity:.30;
+
+    filter:blur(100px);
+
+    opacity:.16;
+
+    pointer-events:none;
+
+    animation:
+        floatOrb 12s ease-in-out infinite;
 }
 
 .orb1{
-    left:-140px;
+
+    background:#00ff88;
+
     top:-150px;
-    background:#20ff88;
-    animation:float1 13s ease-in-out infinite alternate;
+
+    left:-120px;
 }
 
 .orb2{
-    right:-180px;
+
+    background:#00ffaa;
+
+    right:-160px;
+
     top:25%;
-    background:#00b7ff;
-    animation:float2 17s ease-in-out infinite alternate;
+
+    animation-delay:-4s;
 }
 
 .orb3{
-    left:35%;
-    bottom:-230px;
-    background:#35ffb0;
-    animation:float3 20s ease-in-out infinite alternate;
+
+    background:#00c878;
+
+    bottom:-220px;
+
+    left:30%;
+
+    animation-delay:-8s;
 }
 
-@keyframes float1{
-    to{
-        transform:translate(180px,160px) scale(1.25);
+
+@keyframes floatOrb{
+
+    0%,100%{
+        transform:translate3d(0,0,0);
     }
-}
 
-@keyframes float2{
-    to{
-        transform:translate(-180px,120px) scale(1.3);
-    }
-}
-
-@keyframes float3{
-    to{
-        transform:translate(120px,-150px) scale(1.2);
-    }
-}
-
-.live-bg::after{
-    content:"";
-    position:absolute;
-    inset:0;
-
-    background-image:
-        linear-gradient(
-            rgba(255,255,255,.018) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,.018) 1px,
-            transparent 1px
+    50%{
+        transform:translate3d(
+            35px,
+            -30px,
+            0
         );
-
-    background-size:60px 60px;
-
-    mask-image:
-        radial-gradient(
-            ellipse at center,
-            black 15%,
-            transparent 80%
-        );
+    }
 }
 
-#particles{
-    position:absolute;
-    inset:0;
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:50;
+
+    backdrop-filter:blur(22px);
+
+    -webkit-backdrop-filter:blur(22px);
+
+    background:
+        rgba(5,8,6,.68);
+
+    border-bottom:
+        1px solid
+        rgba(69,255,154,.12);
 }
 
-.particle{
-    position:absolute;
+.header-inner{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    min-height:70px;
+
+    padding:
+        0 22px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    font-weight:900;
+
+    letter-spacing:.5px;
+
+    white-space:nowrap;
+}
+
+.logo-dot{
+
+    width:10px;
+
+    height:10px;
+
     border-radius:50%;
+
     background:#45ff9a;
 
     box-shadow:
-        0 0 10px
-        rgba(69,255,154,.5);
+        0 0 10px #45ff9a,
+        0 0 25px rgba(69,255,154,.7);
 
-    animation:
-        particleFloat linear infinite;
+    animation:pulse 2s infinite;
 }
 
-@keyframes particleFloat{
-    from{
-        transform:translateY(110vh);
+@keyframes pulse{
+
+    0%,100%{
+        opacity:1;
+        transform:scale(1);
     }
 
-    to{
-        transform:
-            translateY(-20vh)
-            translateX(40px);
+    50%{
+        opacity:.55;
+        transform:scale(.75);
     }
 }
 
-/* ===== HEADER ===== */
+.logo span{
 
-header{
-    position:sticky;
-    top:0;
-    z-index:100;
+    color:#45ff9a;
+}
 
-    display:flex;
-    justify-content:space-between;
+.header-label{
+
+    color:#8c9a91;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    letter-spacing:2px;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+main{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:
+        65px 22px 80px;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+
+    text-align:center;
+
+    margin-bottom:45px;
+
+    transform-style:preserve-3d;
+}
+
+.badge{
+
+    display:inline-flex;
+
     align-items:center;
 
-    padding:20px 7%;
+    gap:8px;
 
-    border-bottom:
+    padding:
+        8px 13px;
+
+    border-radius:999px;
+
+    background:
+        rgba(69,255,154,.07);
+
+    border:
+        1px solid
+        rgba(69,255,154,.18);
+
+    color:#75ffb0;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+
+    margin-bottom:18px;
+
+    box-shadow:
+        0 0 30px
+        rgba(69,255,154,.04);
+}
+
+.badge::before{
+
+    content:"";
+
+    width:6px;
+
+    height:6px;
+
+    border-radius:50%;
+
+    background:#45ff9a;
+
+    box-shadow:
+        0 0 8px #45ff9a;
+}
+
+.hero h1{
+
+    font-size:
+        clamp(
+            42px,
+            8vw,
+            82px
+        );
+
+    line-height:.95;
+
+    font-weight:950;
+
+    letter-spacing:-4px;
+
+    margin-bottom:18px;
+
+    background:
+        linear-gradient(
+            120deg,
+            #ffffff 10%,
+            #baffd7 45%,
+            #45ff9a 90%
+        );
+
+    -webkit-background-clip:text;
+
+    background-clip:text;
+
+    color:transparent;
+
+    text-shadow:
+        0 0 45px
+        rgba(69,255,154,.08);
+}
+
+.hero p{
+
+    max-width:620px;
+
+    margin:auto;
+
+    color:#87958c;
+
+    font-size:16px;
+
+    line-height:1.7;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-wrap{
+
+    max-width:700px;
+
+    margin:
+        0 auto 48px;
+
+    position:relative;
+}
+
+.search{
+
+    width:100%;
+
+    height:58px;
+
+    border-radius:18px;
+
+    outline:none;
+
+    border:
         1px solid
         rgba(255,255,255,.08);
 
     background:
-        rgba(5,10,8,.58);
+        rgba(255,255,255,.035);
 
-    backdrop-filter:blur(22px);
-    -webkit-backdrop-filter:blur(22px);
-}
+    color:#fff;
 
-.logo{
-    font-size:24px;
-    font-weight:900;
-}
+    padding:
+        0 20px 0 52px;
 
-.logo span{
-    color:#45ff9a;
+    font-size:15px;
 
-    text-shadow:
-        0 0 18px
-        rgba(69,255,154,.4);
-}
+    backdrop-filter:blur(18px);
 
-.badge{
-    padding:8px 14px;
-
-    border-radius:30px;
-
-    color:#45ff9a;
-
-    background:
-        rgba(69,255,154,.08);
-
-    border:
-        1px solid
-        rgba(69,255,154,.25);
-
-    font-size:13px;
-    font-weight:700;
-}
-
-/* ===== HERO ===== */
-
-.hero{
-    text-align:center;
-    padding:85px 20px 45px;
-}
-
-.hero h1{
-    font-size:clamp(45px,9vw,82px);
-
-    font-weight:900;
-
-    letter-spacing:-3px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #ffffff,
-            #45ff9a,
-            #baffdd
-        );
-
-    -webkit-background-clip:text;
-    background-clip:text;
-
-    color:transparent;
-}
-
-.hero p{
-    margin-top:17px;
-
-    color:#9da8a2;
-
-    font-size:17px;
-
-    line-height:1.5;
-}
-
-/* ===== SEARCH ===== */
-
-.search{
-    width:min(700px,90%);
-    margin:0 auto 45px;
-}
-
-.search input{
-    width:100%;
-
-    padding:18px 22px;
-
-    border-radius:18px;
-
-    border:
-        1px solid
-        rgba(255,255,255,.10);
-
-    outline:none;
-
-    color:white;
-
-    background:
-        rgba(255,255,255,.055);
-
-    backdrop-filter:blur(20px);
-
-    font-size:16px;
+    -webkit-backdrop-filter:blur(18px);
 
     transition:.25s;
-}
-
-.search input::placeholder{
-    color:#7e8983;
-}
-
-.search input:focus{
-    border-color:
-        rgba(69,255,154,.55);
 
     box-shadow:
-        0 0 30px
-        rgba(69,255,154,.10);
+        inset 0 1px
+        rgba(255,255,255,.03);
 }
 
-/* ===== LIST ===== */
+.search::placeholder{
 
-.list{
-    width:min(1050px,92%);
-
-    margin:auto;
-
-    display:grid;
-
-    gap:30px;
-
-    padding-bottom:90px;
+    color:#68756d;
 }
 
-/* ===== CARD ===== */
-
-.demon{
-    position:relative;
-    overflow:hidden;
-
-    border-radius:26px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.075),
-            rgba(255,255,255,.035)
-        );
-
-    border:
-        1px solid
-        rgba(255,255,255,.10);
-
-    backdrop-filter:blur(22px);
-
-    box-shadow:
-        0 20px 60px
-        rgba(0,0,0,.20);
-
-    transition:.35s;
-
-    animation:
-        appear .65s ease both;
-}
-
-.demon:hover{
-    transform:translateY(-7px);
+.search:focus{
 
     border-color:
         rgba(69,255,154,.35);
 
-    box-shadow:
-        0 25px 70px
-        rgba(0,0,0,.35),
+    background:
+        rgba(69,255,154,.035);
 
+    box-shadow:
+        0 0 0 4px
+        rgba(69,255,154,.045),
         0 0 35px
         rgba(69,255,154,.05);
 }
 
-/* ===== SCREENSHOT ===== */
-
-.screenshot{
-    width:100%;
-
-    aspect-ratio:16/9;
-
-    overflow:hidden;
-
-    background:#030504;
-
-    position:relative;
-}
-
-.screenshot::after{
-    content:"";
+.search-icon{
 
     position:absolute;
-    inset:0;
 
-    background:
-        linear-gradient(
-            180deg,
-            transparent 65%,
-            rgba(0,0,0,.35)
-        );
-}
+    left:19px;
 
-.screenshot img{
-    width:100%;
-    height:100%;
+    top:50%;
 
-    display:block;
+    transform:translateY(-50%);
 
-    object-fit:cover;
-
-    transition:.6s;
-}
-
-.demon:hover .screenshot img{
-    transform:scale(1.045);
-}
-
-/* ===== CONTENT ===== */
-
-.content{
-    position:relative;
-    padding:25px;
-}
-
-.number{
-    position:absolute;
-
-    right:25px;
-    top:19px;
-
-    font-size:34px;
-    font-weight:900;
-
-    color:
-        rgba(255,255,255,.075);
-}
-
-.demon h2{
-    font-size:26px;
-    margin-bottom:18px;
-}
-
-.info{
-    display:grid;
-    gap:10px;
-
-    color:#aab4ae;
-
-    line-height:1.4;
-}
-
-.info b{
-    color:white;
-}
-
-.song{
     color:#45ff9a;
 
-    text-shadow:
-        0 0 12px
-        rgba(69,255,154,.15);
+    font-size:20px;
+
+    pointer-events:none;
 }
 
-/* ===== BUTTON ===== */
 
-.btn{
-    display:inline-block;
+/* =========================
+   LIST
+========================= */
 
-    margin-top:21px;
+.list{
 
-    padding:11px 18px;
+    display:grid;
 
-    border-radius:13px;
+    gap:18px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.demon{
+
+    position:relative;
+
+    display:grid;
+
+    grid-template-columns:
+        76px
+        190px
+        1fr
+        auto;
+
+    align-items:center;
+
+    gap:22px;
+
+    min-height:160px;
+
+    padding:18px;
+
+    border-radius:25px;
 
     background:
         linear-gradient(
             135deg,
-            #45ff9a,
-            #26e77f
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.018)
         );
 
-    color:#06110b;
+    border:
+        1px solid
+        rgba(255,255,255,.075);
 
-    text-decoration:none;
+    backdrop-filter:blur(18px);
+
+    -webkit-backdrop-filter:blur(18px);
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.22);
+
+    overflow:hidden;
+
+    transition:
+        transform .3s ease,
+        border-color .3s ease,
+        box-shadow .3s ease;
+}
+
+.demon::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:3px;
+
+    height:100%;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            #45ff9a,
+            transparent
+        );
+
+    opacity:.35;
+}
+
+.demon::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+
+    height:180px;
+
+    border-radius:50%;
+
+    background:
+        rgba(69,255,154,.045);
+
+    filter:blur(45px);
+
+    right:-80px;
+
+    top:-100px;
+
+    pointer-events:none;
+}
+
+.demon:hover{
+
+    transform:
+        translateY(-5px);
+
+    border-color:
+        rgba(69,255,154,.23);
+
+    box-shadow:
+        0 25px 80px
+        rgba(0,0,0,.3),
+        0 0 35px
+        rgba(69,255,154,.045);
+}
+
+
+/* number */
+
+.demon-number{
+
+    width:64px;
+
+    height:64px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:22px;
+
+    font-weight:950;
+
+    color:#45ff9a;
+
+    background:
+        rgba(69,255,154,.055);
+
+    border:
+        1px solid
+        rgba(69,255,154,.13);
+
+    box-shadow:
+        inset 0 0 25px
+        rgba(69,255,154,.025);
+}
+
+
+/* screenshot */
+
+.demon-image{
+
+    width:190px;
+
+    height:120px;
+
+    border-radius:17px;
+
+    overflow:hidden;
+
+    background:#080d09;
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    position:relative;
+}
+
+.demon-image::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.08),
+            transparent 40%
+        );
+
+    pointer-events:none;
+}
+
+.demon-image img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+    transition:
+        transform .5s ease;
+}
+
+.demon:hover
+.demon-image img{
+
+    transform:scale(1.06);
+}
+
+
+/* info */
+
+.demon-info{
+
+    min-width:0;
+}
+
+.demon-info h2{
+
+    font-size:23px;
+
+    margin-bottom:9px;
 
     font-weight:900;
 
-    transition:.2s;
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
 }
 
-.btn:hover{
-    transform:
-        translateY(-2px)
-        scale(1.03);
+.meta{
 
-    box-shadow:
-        0 8px 25px
-        rgba(69,255,154,.20);
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+    margin-bottom:10px;
 }
 
-/* ===== EMPTY ===== */
+.tag{
 
-.empty{
-    text-align:center;
+    padding:
+        5px 9px;
 
-    padding:60px 20px;
+    border-radius:8px;
 
-    color:#7d8982;
+    font-size:11px;
 
-    font-size:17px;
-}
+    font-weight:750;
 
-/* ===== FOOTER ===== */
-
-footer{
-    text-align:center;
-
-    padding:35px 20px;
-
-    color:#68736d;
-
-    border-top:
-        1px solid
-        rgba(255,255,255,.06);
+    color:#9ca9a1;
 
     background:
-        rgba(0,0,0,.12);
+        rgba(255,255,255,.035);
 
-    backdrop-filter:blur(15px);
+    border:
+        1px solid
+        rgba(255,255,255,.055);
 }
 
-footer strong{
+.song{
+
+    color:#45ff9a;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    white-space:nowrap;
+}
+
+
+/* button */
+
+.details{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    padding:
+        11px 15px;
+
+    border-radius:13px;
+
+    color:#45ff9a;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    font-weight:850;
+
+    white-space:nowrap;
+
+    background:
+        rgba(69,255,154,.055);
+
+    border:
+        1px solid
+        rgba(69,255,154,.13);
+
+    transition:.25s;
+}
+
+.details:hover{
+
+    background:
+        rgba(69,255,154,.12);
+
+    border-color:
+        rgba(69,255,154,.3);
+
+    box-shadow:
+        0 0 25px
+        rgba(69,255,154,.08);
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+
+    text-align:center;
+
+    padding:70px 20px;
+
+    color:#657269;
+}
+
+.empty strong{
+
+    display:block;
+
+    color:#aab7af;
+
+    font-size:18px;
+
+    margin-bottom:7px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:
+        0 22px 35px;
+
+    text-align:center;
+
+    color:#4d5951;
+
+    font-size:12px;
+}
+
+footer span{
+
     color:#45ff9a;
 }
 
-/* ===== ANIMATION ===== */
 
-@keyframes appear{
+/* =========================
+   PARTICLES
+========================= */
+
+.particle{
+
+    position:fixed;
+
+    width:2px;
+
+    height:2px;
+
+    border-radius:50%;
+
+    background:#45ff9a;
+
+    opacity:.35;
+
+    pointer-events:none;
+
+    z-index:-1;
+
+    box-shadow:
+        0 0 7px
+        rgba(69,255,154,.7);
+
+    animation:
+        particleMove linear infinite;
+}
+
+@keyframes particleMove{
+
     from{
-        opacity:0;
         transform:
-            translateY(25px)
-            scale(.98);
+            translateY(105vh);
     }
 
     to{
-        opacity:1;
         transform:
-            translateY(0)
-            scale(1);
+            translateY(-10vh);
     }
 }
 
-/* ===== MOBILE ===== */
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:850px){
+
+    .demon{
+
+        grid-template-columns:
+            65px
+            1fr
+            auto;
+
+        gap:15px;
+    }
+
+    .demon-image{
+
+        width:150px;
+
+        height:100px;
+
+        grid-column:2;
+
+        grid-row:1;
+    }
+
+    .demon-info{
+
+        grid-column:2;
+
+        grid-row:2;
+    }
+
+    .details{
+
+        grid-column:3;
+
+        grid-row:1 / span 2;
+    }
+
+    .demon-number{
+
+        grid-column:1;
+
+        grid-row:1 / span 2;
+    }
+}
+
 
 @media(max-width:600px){
 
-    header{
-        padding:17px 20px;
+    main{
+
+        padding:
+            45px 14px 60px;
     }
 
-    .logo{
-        font-size:20px;
+    .header-inner{
+
+        padding:
+            0 15px;
     }
 
-    .badge{
-        font-size:11px;
-        padding:7px 10px;
-    }
+    .header-label{
 
-    .hero{
-        padding:65px 15px 35px;
+        display:none;
     }
 
     .hero h1{
+
         letter-spacing:-2px;
     }
 
     .hero p{
-        font-size:15px;
+
+        font-size:14px;
     }
 
-    .list{
-        width:94%;
-        gap:22px;
+    .search-wrap{
+
+        margin-bottom:28px;
     }
 
-    .content{
-        padding:21px;
+    .demon{
+
+        grid-template-columns:
+            52px 1fr;
+
+        padding:13px;
+
+        border-radius:21px;
+
+        gap:12px;
     }
 
-    .demon h2{
-        font-size:23px;
+    .demon-number{
+
+        width:52px;
+
+        height:52px;
+
+        border-radius:15px;
+
+        font-size:18px;
+
+        grid-column:1;
+
+        grid-row:1;
     }
 
-    .number{
-        font-size:28px;
-        right:20px;
+    .demon-image{
+
+        width:100%;
+
+        height:145px;
+
+        grid-column:2;
+
+        grid-row:1;
     }
 
-    .orb{
-        width:300px;
-        height:300px;
-        filter:blur(75px);
+    .demon-info{
+
+        grid-column:1 / -1;
+
+        grid-row:2;
+    }
+
+    .demon-info h2{
+
+        font-size:19px;
+    }
+
+    .details{
+
+        grid-column:1 / -1;
+
+        grid-row:3;
+
+        width:100%;
     }
 }
+
+
+@media(max-width:390px){
+
+    .demon-image{
+
+        height:120px;
+    }
+
+    .hero h1{
+
+        font-size:42px;
+    }
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <div class="live-bg">
+
     <div class="orb orb1"></div>
+
     <div class="orb orb2"></div>
+
     <div class="orb orb3"></div>
-    <div id="particles"></div>
+
 </div>
+
 
 <header>
-    <div class="logo">
-        1x1x1x<span>GDPS</span>
+
+    <div class="header-inner">
+
+        <div class="logo">
+
+            <div class="logo-dot"></div>
+
+            <div>
+                1x1x1x<span>GDPS</span>
+            </div>
+
+        </div>
+
+        <div class="header-label">
+            DEMON LIST
+        </div>
+
     </div>
 
-    <div class="badge">
-        DEMON LIST
-    </div>
 </header>
 
-<section class="hero">
-    <h1>Demon List</h1>
 
-    <p>
-        Все демоны 1x1x1xGDPS<br>
-        в одном месте.
-    </p>
-</section>
+<main>
 
-<div class="search">
-    <input
-        id="search"
-        type="text"
-        autocomplete="off"
-        placeholder="🔎 Поиск демона, песни или автора..."
-    >
-</div>
 
-<main class="list" id="list">
-    <div class="empty">
-        Загрузка Demon List...
+    <section class="hero">
+
+        <div class="badge">
+            1x1x1xGDPS • OFFICIAL LIST
+        </div>
+
+        <h1>
+            Demon List
+        </h1>
+
+        <p>
+            Уровни, прошедшие проверку сообщества
+            1x1x1xGDPS. Ищи демонов, смотри скриншоты
+            и следи за списком.
+        </p>
+
+    </section>
+
+
+    <div class="search-wrap">
+
+        <div class="search-icon">
+            ⌕
+        </div>
+
+        <input
+            id="search"
+            class="search"
+            type="text"
+            placeholder="Поиск уровня, песни или автора..."
+            autocomplete="off"
+        >
+
     </div>
+
+
+    <section
+        id="list"
+        class="list"
+    ></section>
+
+
 </main>
 
+
 <footer>
-    <strong>1x1x1xGDPS</strong>
+
+    <span>1x1x1xGDPS</span>
     • Demon List
+    • Powered by data.json
+
 </footer>
 
+
 <script>
-const DB_URL =
-    "https://x1x1xgdps-demon-list-default-rtdb.firebaseio.com";
 
-const list =
-    document.getElementById("list");
+/* =====================================
+   DATA
+   ===================================== */
 
-const search =
-    document.getElementById("search");
-
-
-/* =========================================
-   Старые демоны — показываются, если база
-   пока пустая или недоступна
-========================================= */
+let demons = [];
 
 const fallback = [
 
     {
         name:"KajankaDemon",
+
         song:"Kajanka naxyi",
+
         author:"1x1x1xGDPS",
 
         screenshot:
@@ -650,7 +1213,9 @@ const fallback = [
 
     {
         name:"1x1x1x Demon",
+
         song:"Theory of Everything 2",
+
         author:"MaFFaKa",
 
         screenshot:
@@ -661,7 +1226,9 @@ const fallback = [
 
     {
         name:"ZQ",
+
         song:"TON 618SONGH",
+
         author:"1x1x1xGDPSOwner",
 
         screenshot:
@@ -672,7 +1239,9 @@ const fallback = [
 
     {
         name:"Y batarey",
+
         song:"Y battery",
+
         author:"1x1x1xGDPSOwner",
 
         screenshot:
@@ -684,135 +1253,9 @@ const fallback = [
 ];
 
 
-let demons = [];
-
-
-/* Безопасный текст */
-
-function esc(value){
-
-    return String(value ?? "")
-        .replace(/[&<>"']/g, char => {
-
-            return {
-
-                "&":"&amp;",
-                "<":"&lt;",
-                ">":"&gt;",
-                '"':"&quot;",
-                "'":"&#039;"
-
-            }[char];
-
-        });
-}
-
-
-/* =========================================
-   Рендер
-========================================= */
-
-function render(){
-
-    const query =
-        search.value
-            .toLowerCase()
-            .trim();
-
-
-    const filtered =
-        demons.filter(demon => {
-
-            const text =
-                `${demon.name}
-                 ${demon.song}
-                 ${demon.author}`
-                .toLowerCase();
-
-            return text.includes(query);
-
-        });
-
-
-    if(!filtered.length){
-
-        list.innerHTML = `
-            <div class="empty">
-                😔 Ничего не найдено.
-            </div>
-        `;
-
-        return;
-    }
-
-
-    list.innerHTML =
-        filtered.map((demon,index) => `
-
-        <article class="demon">
-
-            <div class="screenshot">
-
-                <img
-                    src="${esc(demon.screenshot)}"
-                    alt="${esc(demon.name)}"
-                    loading="lazy"
-                >
-
-            </div>
-
-
-            <div class="content">
-
-                <div class="number">
-                    #${String(index + 1).padStart(2,"0")}
-                </div>
-
-
-                <h2>
-                    ${esc(demon.name)}
-                </h2>
-
-
-                <div class="info">
-
-                    <div>
-                        🎵 Song:
-                        <span class="song">
-                            ${esc(demon.song)}
-                        </span>
-                    </div>
-
-
-                    <div>
-                        👤 By level:
-                        <b>
-                            ${esc(demon.author)}
-                        </b>
-                    </div>
-
-                </div>
-
-
-                <a
-                    class="btn"
-                    href="#"
-                    onclick="return false"
-                >
-                    Подробнее
-                </a>
-
-            </div>
-
-        </article>
-
-        `).join("");
-}
-
-
-/* =========================================
-   Firebase Realtime Database
-========================================= */
+/* =====================================
+   LOAD DATA.JSON
+   ===================================== */
 
 async function loadDemons(){
 
@@ -820,7 +1263,10 @@ async function loadDemons(){
 
         const response =
             await fetch(
-                DB_URL + "/demons.json"
+                "data.json",
+                {
+                    cache:"no-store"
+                }
             );
 
 
@@ -837,39 +1283,30 @@ async function loadDemons(){
             await response.json();
 
 
-        if(data){
+        if(!Array.isArray(data)){
 
-            demons =
-                Object.entries(data)
-                .map(([id,demon]) => ({
-                    id,
-                    ...demon
-                }))
-                .sort(
-                    (a,b) =>
-                        (Number(a.order) || 999999)
-                        -
-                        (Number(b.order) || 999999)
-                );
-
-        }else{
-
-            demons = fallback;
+            throw new Error(
+                "data.json должен содержать массив"
+            );
 
         }
 
 
-        if(!demons.length){
-
-            demons = fallback;
-
-        }
+        demons =
+            data
+            .slice()
+            .sort(
+                (a,b) =>
+                    (Number(a.order) || 999999)
+                    -
+                    (Number(b.order) || 999999)
+            );
 
 
     }catch(error){
 
         console.error(
-            "Firebase error:",
+            "Ошибка data.json:",
             error
         );
 
@@ -879,119 +1316,360 @@ async function loadDemons(){
 
 
     render();
-}
-
-
-search.addEventListener(
-    "input",
-    render
-);
-
-
-/* =========================================
-   Частицы
-========================================= */
-
-const particles =
-    document.getElementById(
-        "particles"
-    );
-
-
-const count =
-    window.innerWidth < 600
-    ? 25
-    : 45;
-
-
-for(let i = 0; i < count; i++){
-
-    const particle =
-        document.createElement("div");
-
-
-    particle.className =
-        "particle";
-
-
-    particle.style.left =
-        Math.random() * 100 + "%";
-
-
-    particle.style.animationDuration =
-        (8 + Math.random() * 15) + "s";
-
-
-    particle.style.animationDelay =
-        (-Math.random() * 15) + "s";
-
-
-    particle.style.opacity =
-        .15 + Math.random() * .45;
-
-
-    const size =
-        1 + Math.random() * 3;
-
-
-    particle.style.width =
-        size + "px";
-
-
-    particle.style.height =
-        size + "px";
-
-
-    particles.appendChild(
-        particle
-    );
 
 }
 
 
-/* =========================================
-   Parallax
-========================================= */
+/* =====================================
+   RENDER
+   ===================================== */
 
-const background =
-    document.querySelector(
-        ".live-bg"
-    );
+function render(){
 
+    const list =
+        document.getElementById("list");
 
-document.addEventListener(
-    "mousemove",
-    event => {
-
-        const x =
-            (
-                event.clientX /
-                window.innerWidth -
-                .5
-            ) * 14;
+    const query =
+        document
+            .getElementById("search")
+            .value
+            .toLowerCase()
+            .trim();
 
 
-        const y =
-            (
-                event.clientY /
-                window.innerHeight -
-                .5
-            ) * 14;
+    const filtered =
+        demons.filter(demon => {
+
+            const text = [
+
+                demon.name,
+
+                demon.song,
+
+                demon.author
+
+            ]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
 
 
-        background.style.transform =
-            `translate(${x}px,${y}px)`;
+            return text.includes(query);
+
+        });
+
+
+    if(!filtered.length){
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                <strong>
+                    Ничего не найдено
+                </strong>
+
+                Попробуй изменить запрос.
+
+            </div>
+
+        `;
+
+        return;
 
     }
-);
 
 
-/* =========================================
-   Запуск
-========================================= */
+    list.innerHTML =
+        filtered
+        .map(
+            (demon,index) => {
+
+                const number =
+                    Number(demon.order)
+                    || index + 1;
+
+
+                const screenshot =
+                    demon.screenshot
+                    || "";
+
+
+                const name =
+                    escapeHTML(
+                        demon.name
+                        || "Без названия"
+                    );
+
+
+                const song =
+                    escapeHTML(
+                        demon.song
+                        || "Неизвестный трек"
+                    );
+
+
+                const author =
+                    escapeHTML(
+                        demon.author
+                        || "Неизвестный автор"
+                    );
+
+
+                return `
+
+                    <article
+                        class="demon"
+                    >
+
+                        <div
+                            class="demon-number"
+                        >
+                            #${number}
+                        </div>
+
+
+                        <div
+                            class="demon-image"
+                        >
+
+                            ${
+                                screenshot
+
+                                ?
+
+                                `
+                                <img
+                                    src="${escapeAttr(screenshot)}"
+                                    alt="${escapeAttr(demon.name || "Demon")}"
+                                    loading="lazy"
+                                    onerror="this.style.display='none'"
+                                >
+                                `
+
+                                :
+
+                                ""
+                            }
+
+                        </div>
+
+
+                        <div
+                            class="demon-info"
+                        >
+
+                            <h2>
+                                ${name}
+                            </h2>
+
+
+                            <div
+                                class="meta"
+                            >
+
+                                <div
+                                    class="tag"
+                                >
+                                    Автор:
+                                    ${author}
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                class="song"
+                            >
+                                ♪ ${song}
+                            </div>
+
+                        </div>
+
+
+                        <a
+                            class="details"
+                            href="#"
+                            onclick="return false"
+                        >
+                            Подробнее
+                            →
+                        </a>
+
+                    </article>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+/* =====================================
+   HTML SECURITY
+   ===================================== */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+function escapeAttr(value){
+
+    return escapeHTML(value);
+
+}
+
+
+/* =====================================
+   SEARCH
+   ===================================== */
+
+document
+    .getElementById("search")
+    .addEventListener(
+        "input",
+        render
+    );
+
+
+/* =====================================
+   PARTICLES
+   ===================================== */
+
+function createParticles(){
+
+    const amount =
+        window.innerWidth < 600
+        ? 20
+        : 35;
+
+
+    for(
+        let i = 0;
+        i < amount;
+        i++
+    ){
+
+        const particle =
+            document.createElement(
+                "div"
+            );
+
+
+        particle.className =
+            "particle";
+
+
+        particle.style.left =
+            Math.random() * 100 + "%";
+
+
+        particle.style.animationDuration =
+            (8 + Math.random() * 15)
+            + "s";
+
+
+        particle.style.animationDelay =
+            (-Math.random() * 15)
+            + "s";
+
+
+        particle.style.opacity =
+            (.15 + Math.random() * .4);
+
+
+        document.body.appendChild(
+            particle
+        );
+
+    }
+
+}
+
+createParticles();
+
+
+/* =====================================
+   MOUSE PARALLAX
+   ===================================== */
+
+if(
+    window.matchMedia(
+        "(pointer:fine)"
+    ).matches
+){
+
+    document.addEventListener(
+        "mousemove",
+        event => {
+
+            const x =
+                (event.clientX /
+                window.innerWidth -
+                .5);
+
+            const y =
+                (event.clientY /
+                window.innerHeight -
+                .5);
+
+
+            document
+                .querySelector(".orb1")
+                .style.transform =
+                    `
+                    translate(
+                        ${x * 25}px,
+                        ${y * 25}px
+                    )
+                    `;
+
+
+            document
+                .querySelector(".orb2")
+                .style.transform =
+                    `
+                    translate(
+                        ${x * -35}px,
+                        ${y * -35}px
+                    )
+                    `;
+
+
+            document
+                .querySelector(".orb3")
+                .style.transform =
+                    `
+                    translate(
+                        ${x * 20}px,
+                        ${y * -20}px
+                    )
+                    `;
+
+        }
+    );
+
+}
+
+
+/* =====================================
+   START
+   ===================================== */
 
 loadDemons();
+
 </script>
+
 
 </body>
 </html>
